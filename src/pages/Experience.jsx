@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import AnimatedPage from "../components/AnimatedPage.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { experience } from "../data/profile.js";
 
@@ -84,15 +85,17 @@ function Experience() {
     <AnimatedPage>
       <Box sx={{ position: "relative" }}>
       <Container maxWidth="lg" className="py-12 md:py-16">
-        <SectionTitle eyebrow="Experience" title="Frontend delivery in production environments">
-          A compact track record of building dashboards, improving rendering
-          performance, and collaborating in Agile engineering teams.
-        </SectionTitle>
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Experience" title="Frontend delivery in production environments">
+            A compact track record of building dashboards, improving rendering
+            performance, and collaborating in Agile engineering teams.
+          </SectionTitle>
+        </Reveal>
 
         <Stack spacing={4}>
-          {experience.map((item) => (
+          {experience.map((item, itemIndex) => (
+            <Reveal key={item.role} variant={itemIndex % 2 === 0 ? "left" : "right"} delay={itemIndex * 0.1}>
             <Paper
-              key={item.role}
               elevation={0}
               className="timeline-card"
               sx={{ border: "1px solid", borderColor: "divider", overflow: "hidden", borderRadius: 3 }}
@@ -153,24 +156,33 @@ function Experience() {
                         alignItems: "flex-start",
                       }}>
                         {/* Bullet points */}
-                        <Stack spacing={1.5} sx={{ flex: 1, minWidth: 0 }}>
-                          {section.points.map((point) => (
-                            <Box key={point} sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}>
-                              <Box component="span" sx={{
-                                mt: "9px", width: 7, height: 7, borderRadius: "50%",
-                                bgcolor: "#f3b43f", flexShrink: 0,
-                              }} />
-                              <Typography color="text.secondary" sx={{ fontSize: "0.875rem", lineHeight: 1.8 }}>
-                                {point}
-                              </Typography>
-                            </Box>
-                          ))}
-                        </Stack>
+                        <Reveal
+                          variant={si % 2 === 0 ? "left" : "right"}
+                          className="w-full min-w-0 md:flex-1"
+                        >
+                          <Stack spacing={1.5}>
+                            {section.points.map((point) => (
+                              <Box key={point} sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}>
+                                <Box component="span" sx={{
+                                  mt: "9px", width: 7, height: 7, borderRadius: "50%",
+                                  bgcolor: "#f3b43f", flexShrink: 0,
+                                }} />
+                                <Typography color="text.secondary" sx={{ fontSize: "0.875rem", lineHeight: 1.8 }}>
+                                  {point}
+                                </Typography>
+                              </Box>
+                            ))}
+                          </Stack>
+                        </Reveal>
 
                         {/* Image collage */}
-                        <Box sx={{ width: { xs: "100%", md: "52%" }, flexShrink: 0 }}>
+                        <Reveal
+                          variant={si % 2 === 0 ? "right" : "left"}
+                          delay={0.15}
+                          className="w-full shrink-0 md:w-[52%]"
+                        >
                           <ImageCollage images={section.images} />
-                        </Box>
+                        </Reveal>
                       </Box>
                     </Box>
                   ))}
@@ -194,6 +206,7 @@ function Experience() {
                 </Box>
               )}
             </Paper>
+            </Reveal>
           ))}
         </Stack>
       </Container>

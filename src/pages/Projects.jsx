@@ -14,21 +14,27 @@ import {
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import AnimatedPage from "../components/AnimatedPage.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { projects } from "../data/profile.js";
+
+const cardVariants = ["zoom", "up", "pop", "tilt"];
 
 function Projects() {
   return (
     <AnimatedPage>
       <Container maxWidth={false} className="py-12 md:py-16">
-        <SectionTitle eyebrow="Projects" title="Websites, PMS workflows, and production dashboards">
-          Projects selected from Kiruthika's resume, shaped into case-study style
-          cards for quick recruiter and engineering review.
-        </SectionTitle>
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Projects" title="Websites, PMS workflows, and production dashboards">
+            Projects selected from Kiruthika's resume, shaped into case-study style
+            cards for quick recruiter and engineering review.
+          </SectionTitle>
+        </Reveal>
 
         <Grid container spacing={3} justifyContent="center">
-          {projects.map((project) => (
-            <Grid item xs={12} lg={6} key={project.title}>
+          {projects.map((project, index) => (
+            <Grid size={{ xs: 12, lg: 6 }} key={project.title}>
+              <Reveal variant={cardVariants[index % cardVariants.length]} delay={(index % 2) * 0.12}>
               <Paper
                 elevation={0}
                 className="project-card mx-auto flex h-full w-full flex-col p-5 md:p-6"
@@ -90,37 +96,40 @@ function Projects() {
                   </Stack>
                 )}
               </Paper>
+              </Reveal>
             </Grid>
           ))}
         </Grid>
 
-        <Paper
-          elevation={0}
-          className="mt-8 p-5 md:p-7"
-          sx={{ border: "1px solid", borderColor: "divider" }}
-        >
-          <Stack
-            direction={{ xs: "column", md: "row" }}
-            spacing={2}
-            alignItems={{ xs: "stretch", md: "center" }}
-            justifyContent="space-between"
+        <Reveal variant="up">
+          <Paper
+            elevation={0}
+            className="mt-8 p-5 md:p-7"
+            sx={{ border: "1px solid", borderColor: "divider" }}
           >
-            <Box>
-              <Typography variant="h5">Need the technical stack at a glance?</Typography>
-              <Typography color="text.secondary" className="mt-2">
-                See languages, visualization tools, APIs, testing workflow, and UI libraries.
-              </Typography>
-            </Box>
-            <Button
-              component={RouterLink}
-              to="/skills"
-              variant="contained"
-              endIcon={<ArrowForwardIcon />}
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={2}
+              alignItems={{ xs: "stretch", md: "center" }}
+              justifyContent="space-between"
             >
-              View Skills
-            </Button>
-          </Stack>
-        </Paper>
+              <Box>
+                <Typography variant="h5">Need the technical stack at a glance?</Typography>
+                <Typography color="text.secondary" className="mt-2">
+                  See languages, visualization tools, APIs, testing workflow, and UI libraries.
+                </Typography>
+              </Box>
+              <Button
+                component={RouterLink}
+                to="/skills"
+                variant="contained"
+                endIcon={<ArrowForwardIcon />}
+              >
+                View Skills
+              </Button>
+            </Stack>
+          </Paper>
+        </Reveal>
       </Container>
     </AnimatedPage>
   );

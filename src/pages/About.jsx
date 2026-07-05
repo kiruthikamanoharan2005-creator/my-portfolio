@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import AnimatedPage from "../components/AnimatedPage.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { certifications, education, profile } from "../data/profile.js";
 
@@ -58,37 +59,42 @@ function About() {
       <Box sx={{ position: "relative" }}>
       <Container maxWidth="lg" className="py-12 md:py-16">
 
-        <SectionTitle eyebrow="About" title="A frontend developer focused on useful interfaces">
-          Kiruthika combines React.js implementation, data visualization, and
-          responsive UI engineering for manufacturing and analytics products.
-        </SectionTitle>
+        <Reveal variant="up">
+          <SectionTitle eyebrow="About" title="A frontend developer focused on useful interfaces">
+            Kiruthika combines React.js implementation, data visualization, and
+            responsive UI engineering for manufacturing and analytics products.
+          </SectionTitle>
+        </Reveal>
 
         {/* Bio — full width */}
-        <Paper
-          elevation={0}
-          className="p-6 md:p-8"
-          sx={{ border: "1px solid", borderColor: "divider", mb: 3 }}
-        >
-          <Typography
-            variant="h5"
-            sx={{ color: PRIMARY, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 800 }}
+        <Reveal variant="blur">
+          <Paper
+            elevation={0}
+            className="p-6 md:p-8"
+            sx={{ border: "1px solid", borderColor: "divider", mb: 3 }}
           >
-            Promoted from intern to full-time in 6 months.
-          </Typography>
-          <Typography color="text.secondary" className="mt-4 leading-7">
-            {profile.summary}
-          </Typography>
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap className="mt-6">
-            {["React Hooks", "REST APIs", "ECharts", "Highcharts", "Responsive Design"].map(
-              (item) => (
-                <Chip key={item} label={item} color="primary" variant="outlined" />
-              ),
-            )}
-          </Stack>
-        </Paper>
+            <Typography
+              variant="h5"
+              sx={{ color: PRIMARY, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 800 }}
+            >
+              Promoted from intern to full-time in 6 months.
+            </Typography>
+            <Typography color="text.secondary" className="mt-4 leading-7">
+              {profile.summary}
+            </Typography>
+            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap className="mt-6">
+              {["React Hooks", "REST APIs", "ECharts", "Highcharts", "Responsive Design"].map(
+                (item) => (
+                  <Chip key={item} label={item} color="primary" variant="outlined" />
+                ),
+              )}
+            </Stack>
+          </Paper>
+        </Reveal>
 
         {/* Education — centered */}
         <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+          <Reveal variant="tilt" style={{ width: "100%", maxWidth: 480 }}>
           <Paper
             elevation={0}
             sx={{
@@ -112,12 +118,17 @@ function About() {
             </Typography>
             <Chip label={education[0].detail} className="mt-4" color="primary" variant="outlined" size="small" />
           </Paper>
+          </Reveal>
         </Box>
 
-        {/* Focus areas — 2 per row */}
-        <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2.5, mb: 6 }}>
-          {focusAreas.map((area) => (
-            <Box key={area.title}>
+        {/* Focus areas — 1 per row on mobile, 2 per row from tablet up */}
+        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2.5, mb: 6 }}>
+          {focusAreas.map((area, index) => (
+            <Reveal
+              key={area.title}
+              variant={index % 2 === 0 ? "left" : "right"}
+              delay={index * 0.08}
+            >
               <Paper
                 elevation={0}
                 sx={{
@@ -151,29 +162,32 @@ function About() {
                   </Typography>
                 </Box>
               </Paper>
-            </Box>
+            </Reveal>
           ))}
         </Box>
 
         {/* Certifications — centered */}
-        <SectionTitle eyebrow="Certifications" title="Learning signals" />
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Certifications" title="Learning signals" />
+        </Reveal>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2.5, width: "100%", maxWidth: 720 }}>
-            {certifications.map((cert) => (
-              <Paper
-                key={cert.title}
-                elevation={0}
-                className="h-full p-5"
-                sx={{ border: "1px solid", borderColor: "divider" }}
-              >
-                <Typography variant="h6" sx={{ color: PRIMARY, fontSize: "0.95rem", fontWeight: 700 }}>
-                  {cert.title}
-                </Typography>
-                <Typography color="text.secondary" className="mt-2 text-sm">
-                  {cert.issuer}
-                </Typography>
-                <Chip label={cert.period} className="mt-4" color="secondary" size="small" />
-              </Paper>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2.5, width: "100%", maxWidth: 720 }}>
+            {certifications.map((cert, index) => (
+              <Reveal key={cert.title} variant="pop" delay={index * 0.1}>
+                <Paper
+                  elevation={0}
+                  className="h-full p-5"
+                  sx={{ border: "1px solid", borderColor: "divider" }}
+                >
+                  <Typography variant="h6" sx={{ color: PRIMARY, fontSize: "0.95rem", fontWeight: 700 }}>
+                    {cert.title}
+                  </Typography>
+                  <Typography color="text.secondary" className="mt-2 text-sm">
+                    {cert.issuer}
+                  </Typography>
+                  <Chip label={cert.period} className="mt-4" color="secondary" size="small" />
+                </Paper>
+              </Reveal>
             ))}
           </Box>
         </Box>

@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import AnimatedPage from "../components/AnimatedPage.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { skills } from "../data/profile.js";
 
@@ -61,88 +62,106 @@ function Skills() {
     <AnimatedPage>
       <Box sx={{ position: "relative" }}>
       <Container maxWidth={false} className="py-12 md:py-16">
-        <SectionTitle eyebrow="Skills" title="Modern React skills for analytics products">
-          A balanced frontend toolkit covering implementation, data handling,
-          visualization, responsive QA, and delivery workflow.
-        </SectionTitle>
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Skills" title="Modern React skills for analytics products">
+            A balanced frontend toolkit covering implementation, data handling,
+            visualization, responsive QA, and delivery workflow.
+          </SectionTitle>
+        </Reveal>
 
         {/* 3D Pie + legend */}
         <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: "center", justifyContent: "center", gap: 8, mb: 10 }}>
 
           {/* Legend — left side */}
-          <Stack spacing={3}>
-            {sliceData.map((s) => (
-              <Stack key={s.label} direction="row" spacing={2} alignItems="center">
-                <Box sx={{
-                  width: 16, height: 16, borderRadius: "4px",
-                  bgcolor: s.color, flexShrink: 0,
-                  boxShadow: `0 2px 8px ${s.color}66`,
-                }} />
-                <Box>
-                  <Typography sx={{ fontWeight: 700, fontSize: "0.95rem", lineHeight: 1.2 }}>
-                    {s.label}
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ fontSize: "0.8rem" }}>
-                    {s.value}% proficiency
-                  </Typography>
-                </Box>
-              </Stack>
-            ))}
-          </Stack>
+          <Reveal variant="left">
+            <Stack spacing={3}>
+              {sliceData.map((s, index) => (
+                <Reveal key={s.label} variant="left" delay={index * 0.08}>
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <Box sx={{
+                      width: 16, height: 16, borderRadius: "4px",
+                      bgcolor: s.color, flexShrink: 0,
+                      boxShadow: `0 2px 8px ${s.color}66`,
+                    }} />
+                    <Box>
+                      <Typography sx={{ fontWeight: 700, fontSize: "0.95rem", lineHeight: 1.2 }}>
+                        {s.label}
+                      </Typography>
+                      <Typography color="text.secondary" sx={{ fontSize: "0.8rem" }}>
+                        {s.value}% proficiency
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Reveal>
+              ))}
+            </Stack>
+          </Reveal>
 
           {/* SVG 3D Pie — right side */}
-          <Box sx={{ flexShrink: 0 }}>
-            <svg width={CX * 2 + 20} height={CY * 2 + DEPTH + 20} style={{ overflow: "visible" }}>
-              {sliceData.map((s) => (
-                <Slice3D
-                  key={s.label}
-                  start={s.start}
-                  end={s.end}
-                  color={s.color}
-                  depth={DEPTH}
-                  delay={s.delay}
-                />
-              ))}
-              {sliceData.map((s) => (
-                <text
-                  key={s.label + "-label"}
-                  x={s.lx}
-                  y={s.ly}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill="#fff"
-                  fontWeight="800"
-                  fontSize="13"
-                  style={{
-                    animation: `slicePop 10s ease-in-out infinite`,
-                    animationDelay: `${s.delay}s`,
-                    opacity: 0,
-                  }}
-                >
-                  {s.value}%
-                </text>
-              ))}
-            </svg>
-          </Box>
+          <Reveal variant="pop" delay={0.15}>
+            <Box sx={{ flexShrink: 0, width: "100%", maxWidth: CX * 2 + 20, px: 2 }}>
+              <svg
+                viewBox={`0 0 ${CX * 2 + 20} ${CY * 2 + DEPTH + 20}`}
+                width="100%"
+                height="auto"
+                style={{ display: "block" }}
+              >
+                {sliceData.map((s) => (
+                  <Slice3D
+                    key={s.label}
+                    start={s.start}
+                    end={s.end}
+                    color={s.color}
+                    depth={DEPTH}
+                    delay={s.delay}
+                  />
+                ))}
+                {sliceData.map((s) => (
+                  <text
+                    key={s.label + "-label"}
+                    x={s.lx}
+                    y={s.ly}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#fff"
+                    fontWeight="800"
+                    fontSize="13"
+                    style={{
+                      animation: `slicePop 10s ease-in-out infinite`,
+                      animationDelay: `${s.delay}s`,
+                      opacity: 0,
+                    }}
+                  >
+                    {s.value}%
+                  </text>
+                ))}
+              </svg>
+            </Box>
+          </Reveal>
 
         </Box>
 
         {/* Skill group cards */}
         <Grid container spacing={2}>
-          {skills.map((group) => (
-            <Grid item xs={12} sm={6} lg={4} key={group.group}>
-              <Paper
-                elevation={0}
-                className="h-full p-5"
-                sx={{ border: "1px solid", borderColor: "divider" }}
+          {skills.map((group, index) => (
+            <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={group.group}>
+              <Reveal
+                variant={["up", "zoom", "down"][index % 3]}
+                delay={(index % 3) * 0.1}
               >
-                <Typography variant="h6">{group.group}</Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap className="mt-4">
-                  {group.items.map((item) => (
-                    <Chip key={item} label={item} size="small" />
-                  ))}
-                </Stack>
-              </Paper>
+                <Paper
+                  elevation={0}
+                  className="h-full p-5"
+                  sx={{ border: "1px solid", borderColor: "divider" }}
+                >
+                  <Typography variant="h6">{group.group}</Typography>
+                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap className="mt-4">
+                    {group.items.map((item) => (
+                      <Chip key={item} label={item} size="small" />
+                    ))}
+                  </Stack>
+                </Paper>
+              </Reveal>
             </Grid>
           ))}
         </Grid>

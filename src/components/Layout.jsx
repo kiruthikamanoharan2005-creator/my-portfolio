@@ -116,20 +116,21 @@ function Layout({ children }) {
               <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/20 text-base font-extrabold text-white">
                 KM
               </span>
-              <span className="ml-3 hidden text-left sm:block">
+              <Box component="span" className="ml-3 text-left" sx={{ display: { xs: "none", sm: "block" } }}>
                 <span className="block text-sm font-extrabold leading-tight text-white">
                   {profile.name}
                 </span>
                 <span className="block text-xs font-semibold text-white/70">
                   React UI Engineer
                 </span>
-              </span>
+              </Box>
             </Button>
 
             <Stack
               direction="row"
               spacing={0.5}
-              className="ml-auto hidden items-center lg:flex"
+              className="ml-auto items-center"
+              sx={{ display: { xs: "none", lg: "flex" } }}
             >
               <NavButtons />
             </Stack>
@@ -142,7 +143,8 @@ function Layout({ children }) {
                   href={profile.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="hidden h-11 w-11 sm:inline-flex"
+                  className="h-11 w-11"
+                  sx={{ display: { xs: "none", sm: "inline-flex" } }}
                 >
                   <GitHubIcon />
                 </IconButton>
@@ -154,12 +156,13 @@ function Layout({ children }) {
                   href={profile.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="hidden h-11 w-11 sm:inline-flex"
+                  className="h-11 w-11"
+                  sx={{ display: { xs: "none", sm: "inline-flex" } }}
                 >
                   <LinkedInIcon />
                 </IconButton>
               </Tooltip>
-              <Box className="hidden lg:block">
+              <Box sx={{ display: { xs: "none", lg: "block" } }}>
                 <ThemeToggle />
               </Box>
               <Tooltip title="Resume">
@@ -167,7 +170,8 @@ function Layout({ children }) {
                   aria-label="Download resume"
                   color="primary"
                   href={profile.resume}
-                  className="hidden h-11 w-11 sm:inline-flex"
+                  className="h-11 w-11"
+                  sx={{ display: { xs: "none", sm: "inline-flex" } }}
                 >
                   <DownloadIcon />
                 </IconButton>
@@ -176,7 +180,8 @@ function Layout({ children }) {
                 aria-label="Open navigation menu"
                 color="inherit"
                 onClick={() => setDrawerOpen(true)}
-                className="h-11 w-11 lg:hidden"
+                className="h-11 w-11"
+                sx={{ display: { xs: "inline-flex", lg: "none" } }}
               >
                 <MenuIcon />
               </IconButton>

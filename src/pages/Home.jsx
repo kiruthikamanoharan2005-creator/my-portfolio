@@ -15,15 +15,22 @@ import {
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import AnimatedPage from "../components/AnimatedPage.jsx";
+import IntroSplash from "../components/IntroSplash.jsx";
+import Reveal, { RevealGroup, RevealItem } from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
+import { useThemeStore } from "../store/themeStore.js";
 import { profile, projects, skills } from "../data/profile.js";
 
 const metricValueColors = ["#572af9", "#c45a43", "#b78920", "#7c55fa"];
 const skillCardAccents = ["#572af9", "#c45a43", "#f3b43f", "#7c55fa"];
 
 function Home() {
+  const mode = useThemeStore((state) => state.mode);
+  const isDark = mode === "dark";
+
   return (
     <AnimatedPage>
+      <IntroSplash />
       <Box className="relative">
 <Container maxWidth="md" className="grid min-h-[calc(100vh-73px)] items-center pb-8 pt-4 md:pb-12 md:pt-6">
           <Box className="relative flex w-full flex-col items-center text-center">
@@ -36,93 +43,105 @@ function Home() {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 width: { xs: "94%", sm: "88%", md: "108%" },
-                height: { xs: "94%", sm: "100%", md: "108%" },
+                height: { xs: "135%", sm: "100%", md: "108%" },
                 borderRadius: "28px",
-                background: "#ffffff",
-                boxShadow: "0 30px 80px rgba(87, 42, 249, 0.3)",
+                background: isDark ? "transparent" : "#ffffff",
+                boxShadow: isDark ? "none" : "0 30px 80px rgba(87, 42, 249, 0.3)",
                 zIndex: 0,
                 pointerEvents: "none",
               }}
             />
-            <Stack spacing={2} className="relative z-[1] w-full max-w-2xl">
-              <Stack
-                direction="row"
-                spacing={1}
-                flexWrap="wrap"
-                justifyContent="center"
-                useFlexGap
-              >
-                <Chip icon={<SpeedIcon />} label="React.js" color="primary" />
-                <Chip icon={<TimelineIcon />} label="Real-time dashboards" />
-              </Stack>
-
-              <Box>
-                <Typography
-                  variant="h1"
-                  className="leading-[1.04]"
-                  sx={{
-                    position: "relative",
-                    zIndex: 1,
-                    color: "#1c1c1c",
-                    fontSize: {
-                      xs: "calc(1.35rem + 2px)",
-                      sm: "calc(1.9rem + 2px)",
-                      md: "calc(2.35rem + 2px)",
-                      lg: "calc(3rem + 2px)",
-                    },
-                  }}
+            <RevealGroup
+              className="relative z-[1] flex w-full max-w-2xl flex-col gap-4"
+              stagger={0.16}
+              amount={0.4}
+            >
+              <RevealItem variant="pop">
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  flexWrap="wrap"
+                  justifyContent="center"
+                  useFlexGap
                 >
-                  {profile.name}
+                  <Chip icon={<SpeedIcon />} label="React.js" color="primary" />
+                  <Chip icon={<TimelineIcon />} label="Real-time dashboards" />
+                </Stack>
+              </RevealItem>
+
+              <RevealItem variant="blur">
+                <Box>
+                  <Typography
+                    variant="h1"
+                    className="leading-[1.04]"
+                    sx={{
+                      position: "relative",
+                      zIndex: 1,
+                      color: isDark ? "#f5f1e8" : "#1c1c1c",
+                      fontSize: {
+                        xs: "calc(1.35rem + 2px)",
+                        sm: "calc(1.9rem + 2px)",
+                        md: "calc(2.35rem + 2px)",
+                        lg: "calc(3rem + 2px)",
+                      },
+                    }}
+                  >
+                    {profile.name}
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    color="primary"
+                    className="mt-1.5 leading-tight"
+                    sx={{
+                      fontSize: {
+                        xs: "calc(0.9rem + 2px)",
+                        sm: "calc(1.12rem + 2px)",
+                        md: "calc(1.28rem + 2px)",
+                        lg: "calc(1.55rem + 2px)",
+                      },
+                    }}
+                  >
+                    {profile.role} for data-rich interfaces.
+                  </Typography>
+                </Box>
+              </RevealItem>
+
+              <RevealItem variant="up">
+                <Typography className="text-base leading-7" sx={{ color: isDark ? "#c9c2b8" : "#5f625f" }}>
+                  {profile.summary}
                 </Typography>
-                <Typography
-                  variant="h2"
-                  color="primary"
-                  className="mt-1.5 leading-tight"
-                  sx={{
-                    fontSize: {
-                      xs: "calc(0.9rem + 2px)",
-                      sm: "calc(1.12rem + 2px)",
-                      md: "calc(1.28rem + 2px)",
-                      lg: "calc(1.55rem + 2px)",
-                    },
-                  }}
-                >
-                  {profile.role} for data-rich interfaces.
-                </Typography>
-              </Box>
+              </RevealItem>
 
-              <Typography className="text-base leading-7" sx={{ color: "#5f625f" }}>
-                {profile.summary}
-              </Typography>
-
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} justifyContent="center">
-                <Button
-                  component={RouterLink}
-                  to="/projects"
-                  variant="contained"
-                  size="large"
-                  endIcon={<ArrowForwardIcon />}
-                >
-                  View Projects
-                </Button>
-                <Button
-                  href={`mailto:${profile.email}`}
-                  variant="outlined"
-                  size="large"
-                  startIcon={<EmailIcon />}
-                >
-                  Contact Me
-                </Button>
-                <Button
-                  href={profile.resume}
-                  variant="text"
-                  size="large"
-                  startIcon={<DownloadIcon />}
-                >
-                  Resume
-                </Button>
-              </Stack>
-            </Stack>
+              <RevealItem variant="zoom">
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} justifyContent="center">
+                  <Button
+                    component={RouterLink}
+                    to="/projects"
+                    variant="contained"
+                    size="large"
+                    endIcon={<ArrowForwardIcon />}
+                  >
+                    View Projects
+                  </Button>
+                  <Button
+                    href={`mailto:${profile.email}`}
+                    variant="outlined"
+                    size="large"
+                    startIcon={<EmailIcon />}
+                  >
+                    Contact Me
+                  </Button>
+                  <Button
+                    href={profile.resume}
+                    variant="text"
+                    size="large"
+                    startIcon={<DownloadIcon />}
+                  >
+                    Resume
+                  </Button>
+                </Stack>
+              </RevealItem>
+            </RevealGroup>
           </Box>
         </Container>
       </Box>
@@ -130,7 +149,12 @@ function Home() {
       <Box component="section" className="w-full px-4 py-8 md:px-6 md:py-12">
         <Box className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {profile.metrics.map((metric, index) => (
-            <Box key={metric.label} className="min-w-0">
+            <Reveal
+              key={metric.label}
+              className="min-w-0"
+              variant={["up", "zoom", "left", "right"][index % 4]}
+              delay={index * 0.1}
+            >
               <Paper
                 elevation={0}
                 className="h-full w-full p-4 text-center"
@@ -147,58 +171,65 @@ function Home() {
                   {metric.label}
                 </Typography>
               </Paper>
-            </Box>
+            </Reveal>
           ))}
         </Box>
       </Box>
 
       <Container maxWidth={false} className="py-12">
-        <SectionTitle eyebrow="Featured work" title="Built around responsive apps and live data">
-          Architecture pages, PMS workflows, OEE analytics, and machine monitoring
-          are the center of this portfolio.
-        </SectionTitle>
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Featured work" title="Built around responsive apps and live data">
+            Architecture pages, PMS workflows, OEE analytics, and machine monitoring
+            are the center of this portfolio.
+          </SectionTitle>
+        </Reveal>
         <Grid container spacing={2.5} justifyContent="center">
-          {projects.map((project) => (
-            <Grid item xs={12} lg={6} key={project.title}>
-              <Paper
-                elevation={0}
-                className="mx-auto flex h-full w-full flex-col p-5 text-center md:text-left"
-                sx={{ border: "1px solid", borderColor: "divider" }}
-              >
-                <Typography variant="h6">{project.title}</Typography>
-                <Typography color="text.secondary" className="mt-3">
-                  {project.summary}
-                </Typography>
-                <Stack spacing={1.25} className="mt-5 flex-1">
-                  {project.outcomes.slice(0, 4).map((outcome) => (
-                    <Box key={outcome} className="flex gap-3 text-left">
-                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#f3b43f]" />
-                      <Typography color="text.secondary" className="text-sm">
-                        {outcome}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Stack>
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  flexWrap="wrap"
-                  justifyContent={{ xs: "center", md: "flex-start" }}
-                  useFlexGap
-                  className="mt-5"
+          {projects.map((project, index) => (
+            <Grid size={{ xs: 12, lg: 6 }} key={project.title}>
+              <Reveal variant={index % 2 === 0 ? "left" : "right"} delay={0.1}>
+                <Paper
+                  elevation={0}
+                  className="mx-auto flex h-full w-full flex-col p-5 text-center md:text-left"
+                  sx={{ border: "1px solid", borderColor: "divider" }}
                 >
-                  {project.stack.map((item) => (
-                    <Chip key={item} label={item} size="small" />
-                  ))}
-                </Stack>
-              </Paper>
+                  <Typography variant="h6">{project.title}</Typography>
+                  <Typography color="text.secondary" className="mt-3">
+                    {project.summary}
+                  </Typography>
+                  <Stack spacing={1.25} className="mt-5 flex-1">
+                    {project.outcomes.slice(0, 4).map((outcome) => (
+                      <Box key={outcome} className="flex gap-3 text-left">
+                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#f3b43f]" />
+                        <Typography color="text.secondary" className="text-sm">
+                          {outcome}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    flexWrap="wrap"
+                    justifyContent={{ xs: "center", md: "flex-start" }}
+                    useFlexGap
+                    className="mt-5"
+                  >
+                    {project.stack.map((item) => (
+                      <Chip key={item} label={item} size="small" />
+                    ))}
+                  </Stack>
+                </Paper>
+              </Reveal>
             </Grid>
           ))}
         </Grid>
       </Container>
 
       <Container maxWidth={false} className="py-12">
-        <SectionTitle eyebrow="Core stack" title="Frontend tools with dashboard depth" />
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Core stack" title="Frontend tools with dashboard depth" />
+        </Reveal>
+        <Reveal variant="zoom">
         <Box className="skill-carousel-panel">
           <Box className="skill-carousel-track">
             {[...skills, ...skills].map((group, index) => (
@@ -246,6 +277,7 @@ function Home() {
             ))}
           </Box>
         </Box>
+        </Reveal>
       </Container>
     </AnimatedPage>
   );

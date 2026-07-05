@@ -14,8 +14,11 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import AnimatedPage from "../components/AnimatedPage.jsx";
+import Reveal from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { profile } from "../data/profile.js";
 
@@ -39,83 +42,124 @@ const collagePos = [
   { top: "50%", left: "55%",  width: "40%", height: 135, rotate: "-1.2deg"}, // GitHub
 ];
 
+function ContactCard({ item, opacity, rotate = "0deg" }) {
+  return (
+    <Box
+      {...(item.href ? {
+        component: "a",
+        href: item.href,
+        target: item.href.startsWith("http") ? "_blank" : undefined,
+        rel: item.href.startsWith("http") ? "noreferrer" : undefined,
+      } : {})}
+      sx={{
+        width: "100%",
+        height: "100%",
+        bgcolor: `rgba(87, 42, 249, ${opacity})`,
+        border: "5px solid #fff",
+        borderRadius: 2,
+        boxShadow: "0 8px 28px rgba(0,0,0,0.18)",
+        transform: `rotate(${rotate})`,
+        transition: "transform 220ms ease, box-shadow 220ms ease",
+        p: 2.5,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+        textAlign: "center",
+        textDecoration: "none",
+        cursor: item.href ? "pointer" : "default",
+        "&:hover": {
+          transform: `rotate(0deg) translateY(-6px)`,
+          boxShadow: "0 16px 40px rgba(87,42,249,0.35)",
+          zIndex: 10,
+        },
+      }}
+    >
+      {/* Icon */}
+      <Box sx={{
+        width: 44, height: 44, borderRadius: 2,
+        bgcolor: "rgba(255,255,255,0.2)",
+        display: "grid", placeItems: "center", color: "#fff",
+      }}>
+        {item.icon}
+      </Box>
+
+      {/* Label + Value */}
+      <Box>
+        <Typography sx={{ color: "rgba(255,255,255,0.75)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", mb: 0.5 }}>
+          {item.label}
+        </Typography>
+        <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem", wordBreak: "break-word" }}>
+          {item.value}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
 function Contact() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <AnimatedPage>
       <Box sx={{ position: "relative" }}>
       <Container maxWidth={false} className="py-12 md:py-16">
-        <SectionTitle eyebrow="Contact" title="Let us build the next interface">
-          Kiruthika is open to frontend engineering opportunities where React,
-          performance, and user-friendly dashboards matter.
-        </SectionTitle>
+        <Reveal variant="up">
+          <SectionTitle eyebrow="Contact" title="Let us build the next interface">
+            Kiruthika is open to frontend engineering opportunities where React,
+            performance, and user-friendly dashboards matter.
+          </SectionTitle>
+        </Reveal>
 
-        {/* Scattered collage contact cards */}
-        <Box sx={{ display: "flex", justifyContent: "center", mb: 8 }}>
-        <Box sx={{ position: "relative", height: { xs: 520, md: 420 }, width: "100%", maxWidth: 1100 }}>
-          {contactItems.map((item, i) => {
-            const pos = collagePos[i];
-            return (
-              <Box
-                key={item.label}
-                {...(item.href ? {
-                  component: "a",
-                  href: item.href,
-                  target: item.href.startsWith("http") ? "_blank" : undefined,
-                  rel: item.href.startsWith("http") ? "noreferrer" : undefined,
-                } : {})}
-                sx={{
-                  position: "absolute",
-                  top: pos.top,
-                  left: pos.left,
-                  width: pos.width,
-                  height: pos.height,
-                  bgcolor: `rgba(87, 42, 249, ${opacities[i]})`,
-                  border: "5px solid #fff",
-                  borderRadius: 2,
-                  boxShadow: "0 8px 28px rgba(0,0,0,0.18)",
-                  transform: `rotate(${pos.rotate})`,
-                  transition: "transform 220ms ease, box-shadow 220ms ease",
-                  p: 2.5,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  cursor: item.href ? "pointer" : "default",
-                  zIndex: i === 2 ? 3 : i < 2 ? 1 : 2,
-                  "&:hover": {
-                    transform: `rotate(0deg) translateY(-6px)`,
-                    boxShadow: "0 16px 40px rgba(87,42,249,0.35)",
-                    zIndex: 10,
-                  },
-                }}
-              >
-                {/* Icon */}
-                <Box sx={{
-                  width: 44, height: 44, borderRadius: 2,
-                  bgcolor: "rgba(255,255,255,0.2)",
-                  display: "grid", placeItems: "center", color: "#fff",
-                }}>
-                  {item.icon}
+        {/* Contact cards: simple stacked grid on mobile (no overlap), scattered collage from tablet up */}
+        {isMobile ? (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 2,
+              mb: 6,
+            }}
+          >
+            {contactItems.map((item, i) => (
+              <Reveal key={item.label} variant="pop" delay={i * 0.08} className="min-w-0">
+                <Box sx={{ height: 140 }}>
+                  <ContactCard item={item} opacity={opacities[i]} />
                 </Box>
-
-                {/* Label + Value */}
-                <Box>
-                  <Typography sx={{ color: "rgba(255,255,255,0.75)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", mb: 0.5 }}>
-                    {item.label}
-                  </Typography>
-                  <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem", wordBreak: "break-all" }}>
-                    {item.value}
-                  </Typography>
-                </Box>
-              </Box>
-            );
-          })}
-        </Box>
-        </Box>
+              </Reveal>
+            ))}
+          </Box>
+        ) : (
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 8 }}>
+          <Box sx={{ position: "relative", height: 420, width: "100%", maxWidth: 1100 }}>
+            {contactItems.map((item, i) => {
+              const pos = collagePos[i];
+              const cardVariants = ["pop", "down", "zoom", "left", "right"];
+              return (
+                <Reveal
+                  key={item.label}
+                  variant={cardVariants[i % cardVariants.length]}
+                  delay={i * 0.1}
+                  style={{
+                    position: "absolute",
+                    top: pos.top,
+                    left: pos.left,
+                    width: pos.width,
+                    height: pos.height,
+                    zIndex: i === 2 ? 3 : i < 2 ? 1 : 2,
+                  }}
+                >
+                  <ContactCard item={item} opacity={opacities[i]} rotate={pos.rotate} />
+                </Reveal>
+              );
+            })}
+          </Box>
+          </Box>
+        )}
 
         {/* Quick message form */}
+        <Reveal variant="blur">
         <Paper
           elevation={0}
           sx={{ border: "1px solid", borderColor: "divider", width: "100%", p: { xs: 3, md: 5 } }}
@@ -165,6 +209,7 @@ function Contact() {
             </Box>
           </Box>
         </Paper>
+        </Reveal>
 
       </Container>
       </Box>
