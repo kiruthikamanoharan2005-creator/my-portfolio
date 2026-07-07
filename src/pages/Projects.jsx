@@ -61,7 +61,7 @@ function Projects() {
                   ))}
                 </Stack>
 
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap" }}>
                   {project.stack.map((item) => (
                     <Chip key={item} label={item} size="small" color="primary" variant="outlined" />
                   ))}

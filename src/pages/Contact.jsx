@@ -53,7 +53,9 @@ function ContactCard({ item, opacity, rotate = "0deg" }) {
       } : {})}
       sx={{
         width: "100%",
-        height: "100%",
+        height: "auto",
+        minHeight: "100%",
+        boxSizing: "border-box",
         bgcolor: `rgba(87, 42, 249, ${opacity})`,
         border: "5px solid #fff",
         borderRadius: 2,
@@ -124,7 +126,7 @@ function Contact() {
           >
             {contactItems.map((item, i) => (
               <Reveal key={item.label} variant="pop" delay={i * 0.08} className="min-w-0">
-                <Box sx={{ height: 140 }}>
+                <Box sx={{ minHeight: 140 }}>
                   <ContactCard item={item} opacity={opacities[i]} />
                 </Box>
               </Reveal>

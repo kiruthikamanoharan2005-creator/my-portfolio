@@ -1,0 +1,49 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background elements -->
+  <circle cx="80" cy="60" r="45" fill="rgba(255,255,255,0.15)" />
+  <circle cx="320" cy="200" r="60" fill="rgba(255,255,255,0.1)" />
+  
+  <!-- Desk -->
+  <rect x="50" y="180" width="300" height="80" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+  
+  <!-- Computer Monitor Left -->
+  <rect x="70" y="100" width="80" height="60" rx="4" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <rect x="75" y="105" width="70" height="45" fill="rgba(255,200,100,0.6)"/>
+  <line x1="105" y1="160" x2="105" y2="180" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+  
+  <!-- Computer Monitor Right -->
+  <rect x="250" y="110" width="80" height="60" rx="4" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <rect x="255" y="115" width="70" height="45" fill="rgba(100,150,255,0.6)"/>
+  <line x1="285" y1="170" x2="285" y2="180" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+  
+  <!-- Laptop in center -->
+  <rect x="165" y="125" width="70" height="10" rx="2" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <rect x="170" y="115" width="60" height="12" rx="2" fill="rgba(150,200,255,0.5)"/>
+  
+  <!-- Person 1 - Left -->
+  <circle cx="60" cy="40" r="12" fill="rgba(255,200,100,0.8)"/>
+  <path d="M 55 52 L 50 85 M 65 52 L 70 85" stroke="rgba(255,200,100,0.7)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 50 60 L 35 70 M 70 60 L 85 75" stroke="rgba(255,200,100,0.7)" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Person 2 - Center -->
+  <circle cx="200" cy="30" r="13" fill="rgba(150,200,100,0.85)"/>
+  <path d="M 194 43 L 190 80 M 206 43 L 210 85" stroke="rgba(150,200,100,0.75)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 190 50 L 170 65 M 210 50 L 230 70" stroke="rgba(150,200,100,0.75)" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Person 3 - Right -->
+  <circle cx="330" cy="50" r="12" fill="rgba(200,100,255,0.8)"/>
+  <path d="M 325 62 L 320 95 M 335 62 L 340 90" stroke="rgba(200,100,255,0.7)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 320 70 L 305 80 M 340 70 L 355 85" stroke="rgba(200,100,255,0.7)" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Document/Paper elements -->
+  <rect x="90" y="200" width="25" height="30" rx="2" fill="rgba(255,255,255,0.25)" transform="rotate(-15 102 215)"/>
+  <rect x="280" y="210" width="25" height="30" rx="2" fill="rgba(255,255,255,0.25)" transform="rotate(20 292 225)"/>
+  
+  <!-- Connecting lines (collaboration) -->
+  <path d="M 100 50 Q 150 60 200 50" stroke="rgba(100,200,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,4"/>
+  <path d="M 200 50 Q 260 65 320 60" stroke="rgba(150,100,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,4"/>
+  
+  <!-- Light bulb (idea) -->
+  <circle cx="200" cy="25" r="6" fill="rgba(255,255,100,0.6)"/>
+  <path d="M 198 31 L 202 31 L 201 35 L 199 35" fill="rgba(255,255,100,0.5)"/>
+</svg>

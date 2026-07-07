@@ -3,7 +3,7 @@ export const profile = {
   role: "Frontend Developer",
   tagline: "React.js UI engineer building responsive, real-time dashboards.",
   location: "Tirupur, Tamil Nadu, India",
-  email: "kiruthikamanoharan.ml@gmail.com",
+  email: "kiruthikamanoharan47@gmail.com",
   phone: "+91 87785 33287",
   linkedin: "https://linkedin.com/in/kiruthika-m",
   github: "https://github.com/kiruthikamanoharan2005-creator",
@@ -42,6 +42,52 @@ export const skills = [
   {
     group: "Workflow",
     items: ["Git", "GitHub", "Docker", "VS Code", "Figma Basic", "Agile Scrum"],
+  },
+];
+
+export const softSkills = [
+  {
+    title: "Problem Solving",
+    description: "Analytical thinking & solution design",
+    color: "#572af9",
+    gradient: "linear-gradient(135deg, #572af9 0%, #8b66fb 100%)",
+  },
+  {
+    title: "Communication",
+    description: "Clear & effective expression",
+    color: "#c45a43",
+    gradient: "linear-gradient(135deg, #c45a43 0%, #ff8a65 100%)",
+  },
+  {
+    title: "Collaboration",
+    description: "Team & cross-functional work",
+    color: "#16a34a",
+    gradient: "linear-gradient(135deg, #16a34a 0%, #4ade80 100%)",
+    image: "/assets/team-collaboration.svg",
+  },
+  {
+    title: "Adaptability",
+    description: "Fast learning & flexibility",
+    color: "#f3b43f",
+    gradient: "linear-gradient(135deg, #f3b43f 0%, #ffd54f 100%)",
+  },
+  {
+    title: "Attention to Detail",
+    description: "Precision & quality focus",
+    color: "#0ea5e9",
+    gradient: "linear-gradient(135deg, #0ea5e9 0%, #29b6f6 100%)",
+  },
+  {
+    title: "Time Management",
+    description: "On-time delivery & planning",
+    color: "#ec4899",
+    gradient: "linear-gradient(135deg, #ec4899 0%, #f06292 100%)",
+  },
+  {
+    title: "Self-Motivation",
+    description: "Initiative & drive",
+    color: "#8b5cf6",
+    gradient: "linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)",
   },
 ];
 

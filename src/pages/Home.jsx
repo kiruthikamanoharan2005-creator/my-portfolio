@@ -39,14 +39,16 @@ function Home() {
               className="running-border"
               sx={{
                 position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: { xs: "94%", sm: "88%", md: "108%" },
-                height: { xs: "135%", sm: "100%", md: "108%" },
+                inset: {
+                  xs: "-20px -16px",
+                  sm: "-28px -32px",
+                  md: "-32px -48px",
+                },
                 borderRadius: "28px",
-                background: isDark ? "transparent" : "#ffffff",
-                boxShadow: isDark ? "none" : "0 30px 80px rgba(87, 42, 249, 0.3)",
+                background: isDark ? "#000000" : "#ffffff",
+                boxShadow: isDark
+                  ? "0 30px 80px rgba(0, 0, 0, 0.5)"
+                  : "0 30px 80px rgba(87, 42, 249, 0.3)",
                 zIndex: 0,
                 pointerEvents: "none",
               }}
@@ -60,9 +62,9 @@ function Home() {
                 <Stack
                   direction="row"
                   spacing={1}
-                  flexWrap="wrap"
                   justifyContent="center"
                   useFlexGap
+                  sx={{ flexWrap: "wrap" }}
                 >
                   <Chip icon={<SpeedIcon />} label="React.js" color="primary" />
                   <Chip icon={<TimelineIcon />} label="Real-time dashboards" />
@@ -209,10 +211,10 @@ function Home() {
                   <Stack
                     direction="row"
                     spacing={1}
-                    flexWrap="wrap"
                     justifyContent={{ xs: "center", md: "flex-start" }}
                     useFlexGap
                     className="mt-5"
+                    sx={{ flexWrap: "wrap" }}
                   >
                     {project.stack.map((item) => (
                       <Chip key={item} label={item} size="small" />

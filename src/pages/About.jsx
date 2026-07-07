@@ -82,7 +82,7 @@ function About() {
             <Typography color="text.secondary" className="mt-4 leading-7">
               {profile.summary}
             </Typography>
-            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap className="mt-6">
+            <Stack direction="row" spacing={1} useFlexGap className="mt-6" sx={{ flexWrap: "wrap" }}>
               {["React Hooks", "REST APIs", "ECharts", "Highcharts", "Responsive Design"].map(
                 (item) => (
                   <Chip key={item} label={item} color="primary" variant="outlined" />
@@ -116,7 +116,23 @@ function About() {
             <Typography color="text.secondary" className="mt-1 text-sm">
               {education[0].period}
             </Typography>
-            <Chip label={education[0].detail} className="mt-4" color="primary" variant="outlined" size="small" />
+            <Chip
+              label={education[0].detail}
+              className="mt-4"
+              color="primary"
+              variant="outlined"
+              size="small"
+              sx={{
+                height: "auto",
+                maxWidth: "100%",
+                "& .MuiChip-label": {
+                  display: "block",
+                  whiteSpace: "normal",
+                  wordBreak: "break-word",
+                  py: 0.75,
+                },
+              }}
+            />
           </Paper>
           </Reveal>
         </Box>

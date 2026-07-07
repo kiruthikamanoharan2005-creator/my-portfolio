@@ -4,7 +4,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Box,
@@ -109,7 +109,7 @@ function Layout({ children }) {
     <Box className="site-shell min-h-screen overflow-hidden">
       <GlowBackground />
       <AppBar
-        position="sticky"
+        position="fixed"
         color="transparent"
         elevation={0}
         sx={{
@@ -117,6 +117,10 @@ function Layout({ children }) {
           borderBottom: "1px solid",
           borderColor: "rgba(255,255,255,0.15)",
           bgcolor: "#572af9",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
         }}
       >
         <Container maxWidth={false}>
@@ -131,12 +135,12 @@ function Layout({ children }) {
               <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/20 text-base font-extrabold text-white">
                 KM
               </span>
-              <Box component="span" className="ml-3 text-left" sx={{ display: { xs: "none", sm: "block" } }}>
+              <Box component="span" className="ml-3 text-left" sx={{ display: { xs: "block", sm: "block" } }}>
                 <span className="block text-sm font-extrabold leading-tight text-white">
                   {profile.name}
                 </span>
                 <span className="block text-xs font-semibold text-white/70">
-                  React UI Engineer
+                  Software Developer
                 </span>
               </Box>
             </Button>
@@ -183,22 +187,21 @@ function Layout({ children }) {
               <Tooltip title="Resume">
                 <IconButton
                   aria-label="Download resume"
-                  color="primary"
                   href={profile.resume}
                   className="h-11 w-11"
-                  sx={{ display: { xs: "none", sm: "inline-flex" } }}
+                  sx={{ display: { xs: "none", sm: "inline-flex" }, color: "#ffffff" }}
                 >
                   <DownloadIcon />
                 </IconButton>
               </Tooltip>
               <IconButton
-                aria-label="Open more options menu"
+                aria-label="Open navigation menu"
                 color="inherit"
                 onClick={() => setDrawerOpen(true)}
                 className="h-11 w-11"
                 sx={{ display: { xs: "inline-flex", lg: "none" } }}
               >
-                <MoreVertIcon />
+                <MenuIcon />
               </IconButton>
             </Stack>
           </Toolbar>
@@ -213,7 +216,7 @@ function Layout({ children }) {
       >
         <Box className="flex h-full flex-col gap-6 p-5">
           <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="h6">{profile.name}</Typography>
+            <Typography variant="h6">KM</Typography>
             <IconButton aria-label="Close navigation menu" onClick={() => setDrawerOpen(false)}>
               <CloseIcon />
             </IconButton>
@@ -257,7 +260,7 @@ function Layout({ children }) {
         </Box>
       </Drawer>
 
-      <main>{children}</main>
+      <main style={{ paddingTop: "70px" }}>{children}</main>
 
       <Box
         component="footer"
@@ -271,10 +274,8 @@ function Layout({ children }) {
             alignItems={{ xs: "flex-start", md: "center" }}
             justifyContent="space-between"
           >
-            <Typography sx={{ color: "rgba(255,255,255,0.85)" }}>
-              Designed for responsive React dashboards and modern frontend roles.
-            </Typography>
-            <Typography sx={{ color: "rgba(255,255,255,0.85)" }}>
+
+            <Typography sx={{ color: "rgba(255,255,255,0.85)", textAlign: "center", width: "100%" }}>
               {profile.email} | {profile.location}
             </Typography>
           </Stack>

@@ -2,6 +2,7 @@ import { Box, CssBaseline, LinearProgress, ThemeProvider, createTheme } from "@m
 import { Suspense, lazy, useEffect, useMemo } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
+import IntroSplash from "./components/IntroSplash.jsx";
 import { useThemeStore } from "./store/themeStore.js";
 
 const About = lazy(() => import("./pages/About.jsx"));
@@ -65,6 +66,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <IntroSplash />
       <Layout>
         <Suspense
           fallback={
