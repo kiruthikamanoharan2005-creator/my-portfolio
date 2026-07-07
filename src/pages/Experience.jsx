@@ -6,6 +6,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import AnimatedPage from "../components/AnimatedPage.jsx";
 import Reveal from "../components/Reveal.jsx";
@@ -81,6 +82,9 @@ function ImageCollage({ images }) {
 }
 
 function Experience() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+  
   return (
     <AnimatedPage>
       <Box sx={{ position: "relative" }}>
@@ -114,7 +118,7 @@ function Experience() {
                   <Typography sx={{ fontWeight: 800, fontSize: "1rem", color: PRIMARY }}>
                     {item.role}
                   </Typography>
-                  <Typography color="text.secondary" sx={{ fontSize: "0.8rem" }}>
+                  <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: isDark ? "#000000" : "#000000" }}>
                     {item.company}
                   </Typography>
                 </Box>

@@ -13,6 +13,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import AnimatedPage from "../components/AnimatedPage.jsx";
 import IntroSplash from "../components/IntroSplash.jsx";
@@ -23,6 +24,24 @@ import { profile, projects, skills } from "../data/profile.js";
 
 const metricValueColors = ["#572af9", "#c45a43", "#b78920", "#7c55fa"];
 const skillCardAccents = ["#572af9", "#c45a43", "#f3b43f", "#7c55fa"];
+
+function DotsAnimation() {
+  const [dots, setDots] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prev) => {
+        if (prev === "") return ".";
+        if (prev === ".") return "..";
+        if (prev === "..") return "...";
+        return "";
+      });
+    }, 375);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <span>{dots}</span>;
+}
 
 function Home() {
   const mode = useThemeStore((state) => state.mode);
@@ -266,6 +285,7 @@ function Home() {
                   sx={{ color: skillCardAccents[index % skillCardAccents.length] }}
                 >
                   {group.group}
+                  <DotsAnimation />
                 </Typography>
                 <Box
                   sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 2 }}

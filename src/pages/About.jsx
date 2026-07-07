@@ -10,6 +10,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import AnimatedPage from "../components/AnimatedPage.jsx";
 import Reveal from "../components/Reveal.jsx";
@@ -54,6 +55,13 @@ const focusAreas = [
 ];
 
 function About() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+
+  const focusAreasWithTheme = focusAreas.map(area => ({
+    ...area,
+    cardBg: isDark ? `${area.iconBg}15` : area.cardBg,
+  }));
   return (
     <AnimatedPage>
       <Box sx={{ position: "relative" }}>
@@ -139,7 +147,7 @@ function About() {
 
         {/* Focus areas — 1 per row on mobile, 2 per row from tablet up */}
         <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2.5, mb: 6 }}>
-          {focusAreas.map((area, index) => (
+          {focusAreasWithTheme.map((area, index) => (
             <Reveal
               key={area.title}
               variant={index % 2 === 0 ? "left" : "right"}

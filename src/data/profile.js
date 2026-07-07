@@ -5,7 +5,7 @@ export const profile = {
   location: "Tirupur, Tamil Nadu, India",
   email: "kiruthikamanoharan47@gmail.com",
   phone: "+91 87785 33287",
-  linkedin: "https://linkedin.com/in/kiruthika-m",
+  linkedin: "https://www.linkedin.com/in/kiruthika-manoharan-b6a03b297",
   github: "https://github.com/kiruthikamanoharan2005-creator",
   resume: "/Kiruthika_M_Resume_ATS.docx",
   summary:
@@ -38,6 +38,10 @@ export const skills = [
   {
     group: "API & Data",
     items: ["REST API", "Axios", "JSON", "Real-Time Data", "WebSocket Basic"],
+  },
+  {
+    group: "Backend",
+    items: ["Node.js", "Backend API Call"],
   },
   {
     group: "Workflow",
