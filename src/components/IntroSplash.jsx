@@ -1,138 +1,173 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import { createPortal } from "react-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 
 const SESSION_KEY = "portfolio_intro_shown";
 
-const FLIGHT_DELAY = 1.1;
-const FLIGHT_DURATION = 3.6;
-const TOTAL_DURATION = (FLIGHT_DELAY + FLIGHT_DURATION) * 1000 + 150;
+const HOLD_DURATION = 2.4;
+const EXIT_DURATION = 0.7;
+const TOTAL_DURATION = (HOLD_DURATION + EXIT_DURATION) * 1000 + 100;
 
-const flightTransition = {
-  duration: FLIGHT_DURATION,
-  delay: FLIGHT_DELAY,
-  ease: [0.65, 0, 0.35, 1],
-};
+const accentShapes = [
+  { top: "14%", left: "10%", size: 46, color: "#ef4b3a", rotate: -20, shape: "pill" },
+  { top: "10%", left: "66%", size: 28, color: "#4f8ff0", rotate: 0, shape: "circle" },
+  { top: "34%", left: "86%", size: 40, color: "#ef4b3a", rotate: 30, shape: "pill" },
+  { top: "60%", left: "6%", size: 32, color: "#a8d96b", rotate: 0, shape: "circle" },
+  { top: "66%", left: "80%", size: 44, color: "#f4a13a", rotate: -35, shape: "pill" },
+  { top: "42%", left: "3%", size: 24, color: "#f4a13a", rotate: 0, shape: "circle" },
+  { top: "20%", left: "40%", size: 22, color: "#a8d96b", rotate: 0, shape: "circle" },
+];
 
-const TOTAL_ANIM = FLIGHT_DELAY + FLIGHT_DURATION;
-const TEXT_FADE_IN = 0.8;
-const TEXT_FADE_OUT = 2.6;
-
-const textTransition = {
-  duration: TOTAL_ANIM,
-  ease: "easeInOut",
-  times: [
-    0,
-    TEXT_FADE_IN / TOTAL_ANIM,
-    FLIGHT_DELAY / TOTAL_ANIM,
-    (FLIGHT_DELAY + TEXT_FADE_OUT) / TOTAL_ANIM,
-    1,
-  ],
-};
-
-const clouds = [
-  { top: "14%", left: "8%", size: 130 },
-  { top: "22%", left: "58%", size: 90 },
-  { top: "55%", left: "16%", size: 150 },
-  { top: "68%", left: "70%", size: 110 },
-  { top: "8%", left: "78%", size: 80 },
-  { top: "78%", left: "38%", size: 95 },
+const cloudShapes = [
+  { left: "-2%", size: 200 },
+  { left: "16%", size: 150 },
+  { left: "32%", size: 230 },
+  { left: "50%", size: 170 },
+  { left: "66%", size: 220 },
+  { left: "84%", size: 180 },
+  { left: "100%", size: 200 },
 ];
 
 function IntroSplash() {
   const [visible, setVisible] = useState(
     () => typeof window !== "undefined" && !sessionStorage.getItem(SESSION_KEY)
   );
+  const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
     if (!visible) return undefined;
     sessionStorage.setItem(SESSION_KEY, "1");
-    const timer = setTimeout(() => setVisible(false), TOTAL_DURATION);
-    return () => clearTimeout(timer);
+    const exitTimer = setTimeout(() => setExiting(true), HOLD_DURATION * 1000);
+    const hideTimer = setTimeout(() => setVisible(false), TOTAL_DURATION);
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(hideTimer);
+    };
   }, [visible]);
 
   if (!visible) return null;
 
-  return (
-    <Box sx={{ position: "fixed", inset: 0, zIndex: 2000, overflow: "hidden" }}>
-      {/* Sky + clouds: masked so the rocket's flight tears this layer open,
-          growing from the launch corner (bottom-left) to the exit corner (top-right). */}
-      <motion.div
-        initial={{
-          WebkitMaskImage: "radial-gradient(circle at 0% 100%, transparent 0%, black 3%)",
-          maskImage: "radial-gradient(circle at 0% 100%, transparent 0%, black 3%)",
-        }}
-        animate={{
-          WebkitMaskImage: "radial-gradient(circle at 0% 100%, transparent 100%, black 100%)",
-          maskImage: "radial-gradient(circle at 0% 100%, transparent 100%, black 100%)",
-        }}
-        transition={flightTransition}
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(180deg, #d9ecff 0%, #f3f9ff 55%, #ffffff 100%)",
-        }}
-      >
-        {clouds.map((cloud, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 0.95, x: 20 }}
-            transition={{ duration: FLIGHT_DELAY + FLIGHT_DURATION, ease: "linear" }}
-            style={{
-              position: "absolute",
-              top: cloud.top,
-              left: cloud.left,
-              width: cloud.size,
-              height: cloud.size * 0.42,
-              borderRadius: 999,
-              background: "#ffffff",
-              boxShadow: "0 0 30px 12px rgba(255,255,255,0.85)",
-              filter: "blur(0.5px)",
-            }}
-          />
-        ))}
-      </motion.div>
-
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          px: 3,
-        }}
-      >
+  return createPortal(
+    <AnimatePresence>
+      {!exiting && (
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: [0, 1, 1, 0, 0], y: [18, 0, 0, -12, -12] }}
-          transition={textTransition}
-          style={{ textAlign: "center" }}
+          key="intro-splash"
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: EXIT_DURATION, ease: "easeInOut" }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 2000,
+            overflow: "hidden",
+            background:
+              "radial-gradient(circle at 50% 32%, #4fe4dd 0%, #1fc7cf 45%, #0da7bb 100%)",
+          }}
         >
-          <Typography
-            variant="h3"
+          {accentShapes.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.25 + index * 0.08, ease: "backOut" }}
+              style={{
+                position: "absolute",
+                top: item.top,
+                left: item.left,
+                width: item.size,
+                height: item.shape === "pill" ? item.size * 1.8 : item.size,
+                borderRadius: item.shape === "pill" ? 999 : "50%",
+                background: item.color,
+                transform: `rotate(${item.rotate}deg)`,
+                boxShadow: "0 8px 18px rgba(0,0,0,0.18)",
+              }}
+            />
+          ))}
+
+          <Box
             sx={{
-              fontWeight: 800,
-              color: "#1c1c1c",
-              fontSize: { xs: "1.6rem", sm: "2.2rem", md: "2.8rem" },
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              px: 3,
             }}
           >
-            Welcome to my portfolio
-          </Typography>
-        </motion.div>
-      </Box>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+              style={{ textAlign: "center" }}
+            >
+              <Typography
+                sx={{
+                  fontWeight: 800,
+                  color: "#ffffff",
+                  letterSpacing: "0.02em",
+                  lineHeight: 1.05,
+                  fontSize: { xs: "2.3rem", sm: "3.2rem", md: "4rem" },
+                  textShadow:
+                    "0 2px 0 rgba(0,0,0,0.1), 0 18px 30px rgba(0,60,60,0.35)",
+                }}
+              >
+                Welcome
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  color: "#ffffff",
+                  opacity: 0.94,
+                  mt: 0.5,
+                  fontSize: { xs: "1.05rem", sm: "1.3rem", md: "1.6rem" },
+                }}
+              >
+                to my portfolio
+              </Typography>
+            </motion.div>
+          </Box>
 
-      <motion.div
-        initial={{ left: "-10%", top: "105%", opacity: 0 }}
-        animate={{ left: "105%", top: "-15%", opacity: 1 }}
-        transition={flightTransition}
-        style={{ position: "absolute" }}
-      >
-        <RocketLaunchIcon sx={{ fontSize: { xs: 44, sm: 56, md: 64 }, color: "#572af9" }} />
-      </motion.div>
-    </Box>
+          <Box
+            aria-hidden
+            sx={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: "24%",
+              minHeight: 90,
+              pointerEvents: "none",
+            }}
+          >
+            {cloudShapes.map((cloud, index) => (
+              <Box
+                key={index}
+                sx={{
+                  position: "absolute",
+                  left: cloud.left,
+                  top: 0,
+                  width: cloud.size,
+                  height: cloud.size,
+                  borderRadius: "50%",
+                  background: "#ffffff",
+                  transform: "translate(-50%, 32%)",
+                }}
+              />
+            ))}
+            <Box
+              sx={{
+                position: "absolute",
+                inset: 0,
+                top: "50%",
+                background: "#ffffff",
+              }}
+            />
+          </Box>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
   );
 }
 

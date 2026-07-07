@@ -4,7 +4,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import MenuIcon from "@mui/icons-material/Menu";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   AppBar,
   Box,
@@ -58,8 +58,9 @@ function ThemeButton() {
   );
 }
 
-function NavButtons({ onNavigate }) {
+function NavButtons({ onNavigate, variant = "appbar" }) {
   const location = useLocation();
+  const onDark = variant === "appbar";
 
   return navItems.map((item) => {
     const active = location.pathname === item.path;
@@ -70,13 +71,27 @@ function NavButtons({ onNavigate }) {
         component={NavLink}
         to={item.path}
         onClick={onNavigate}
+        fullWidth={!onDark}
         sx={{
           px: 1.5,
           minWidth: "auto",
-          color: active ? "#fff" : "rgba(255,255,255,0.75)",
+          justifyContent: onDark ? "center" : "flex-start",
+          color: onDark
+            ? active
+              ? "#fff"
+              : "rgba(255,255,255,0.75)"
+            : active
+              ? "primary.main"
+              : "text.primary",
           fontWeight: active ? 700 : 500,
-          bgcolor: active ? "rgba(255,255,255,0.15)" : "transparent",
-          "&:hover": { bgcolor: "rgba(255,255,255,0.12)", color: "#fff" },
+          bgcolor: active
+            ? onDark
+              ? "rgba(255,255,255,0.15)"
+              : "action.selected"
+            : "transparent",
+          "&:hover": onDark
+            ? { bgcolor: "rgba(255,255,255,0.12)", color: "#fff" }
+            : { bgcolor: "action.hover" },
         }}
       >
         {item.label}
@@ -177,13 +192,13 @@ function Layout({ children }) {
                 </IconButton>
               </Tooltip>
               <IconButton
-                aria-label="Open navigation menu"
+                aria-label="Open more options menu"
                 color="inherit"
                 onClick={() => setDrawerOpen(true)}
                 className="h-11 w-11"
                 sx={{ display: { xs: "inline-flex", lg: "none" } }}
               >
-                <MenuIcon />
+                <MoreVertIcon />
               </IconButton>
             </Stack>
           </Toolbar>
@@ -205,7 +220,7 @@ function Layout({ children }) {
           </Stack>
 
           <Stack spacing={1}>
-            <NavButtons onNavigate={() => setDrawerOpen(false)} />
+            <NavButtons variant="drawer" onNavigate={() => setDrawerOpen(false)} />
           </Stack>
 
           <Stack spacing={1.5} className="mt-auto">
