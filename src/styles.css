@@ -322,3 +322,257 @@ a {
   background: #f3b43f;
   color: #111111;
 }
+
+.screen-template-shell {
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 220px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(247,243,255,0.35));
+  box-shadow: 0 8px 30px rgba(14,14,20,0.45);
+  backdrop-filter: blur(8px) saturate(120%);
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+:root.dark .screen-template-shell {
+  background: linear-gradient(135deg, rgba(8,6,15,0.55), rgba(26,22,50,0.45));
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+.screen-template-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.screen-template-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.screen-template-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot-purple { background: #572af9; }
+.dot-gold { background: #f3b43f; }
+.dot-teal { background: #14b8a6; }
+
+.screen-template-chip {
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.12);
+  color: #6b21a8;
+}
+
+.screen-template-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 10px;
+}
+
+.screen-template-card-large,
+.screen-template-card-small {
+  border-radius: 12px;
+  min-height: 56px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.screen-template-card-large {
+  min-height: 86px;
+  background: linear-gradient(135deg, #572af9, #7c3aed 70%);
+}
+
+.screen-template-card-small {
+  background: linear-gradient(135deg, rgba(243,180,63,0.9), rgba(196,90,67,0.83));
+}
+
+.screen-template-editorial .screen-template-card-large {
+  background: linear-gradient(135deg, #111827, #374151 70%);
+}
+
+.screen-template-editorial .screen-template-card-small {
+  background: linear-gradient(135deg, #f59e0b, #fb923c);
+}
+
+.screen-template-spotlight .screen-template-card-large {
+  background: linear-gradient(135deg, #2563eb, #38bdf8 70%);
+}
+
+.screen-template-spotlight .screen-template-card-small {
+  background: linear-gradient(135deg, #0f766e, #2dd4bf);
+}
+
+.screen-template-contact .screen-template-card-large {
+  background: linear-gradient(135deg, #c45a43, #ff8a65 70%);
+}
+
+.screen-template-contact .screen-template-card-small {
+  background: linear-gradient(135deg, #4f46e5, #818cf8);
+}
+
+/* New simplified mockup visuals */
+.screen-template-mockup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 2px 2px 2px;
+}
+
+.mockup-header {
+  height: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.25), rgba(255,255,255,0.08));
+}
+
+.mockup-hero {
+  flex: 1 1 auto;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(87,42,249,0.18), rgba(243,180,63,0.12));
+  min-height: 72px;
+}
+
+.mockup-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mockup-pill {
+  height: 26px;
+  min-width: 64px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+}
+
+.mockup-pill.small {
+  min-width: 36px;
+  height: 18px;
+}
+
+:root.dark .mockup-hero {
+  background: linear-gradient(135deg, rgba(139,102,251,0.14), rgba(79,209,197,0.09));
+}
+
+/* Outer wrapper to replace the Paper card chrome */
+.screen-template-outer {
+  border-radius: 18px;
+  padding: 6px;
+  background: transparent;
+}
+
+/* Hover: lift and subtle color shift */
+.screen-template-outer:hover .screen-template-shell {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(14,14,20,0.55);
+}
+
+/* Tweak chip color in dark mode */
+:root.dark .screen-template-chip {
+  color: #d6ccff;
+  background: rgba(255,255,255,0.04);
+}
+
+/* Design patterns list (no card boxes) */
+.design-patterns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* Simple horizontal, centered icon cards (matches requested layout) */
+.design-patterns--simple {
+  background: transparent;
+}
+
+@media (min-width: 900px) {
+  .design-patterns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .design-patterns--simple {
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+  }
+}
+
+.pattern-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  backdrop-filter: blur(6px) saturate(110%);
+}
+
+.pattern-item.pattern-simple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 18px;
+  background: transparent;
+  gap: 12px;
+}
+
+.pattern-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 86px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  box-shadow: 0 12px 30px rgba(14,14,20,0.25);
+}
+
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+}
+
+.pattern-icon--dashboard .icon-circle { background: linear-gradient(135deg,#7c3aed,#572af9); }
+.pattern-icon--editorial .icon-circle { background: linear-gradient(135deg,#fff1f2,#fef3c7); }
+.pattern-icon--spotlight .icon-circle { background: linear-gradient(135deg,#06b6d4,#60a5fa); }
+.pattern-icon--contact .icon-circle { background: linear-gradient(135deg,#fb7185,#f97316); }
+
+.pattern-visual {
+  width: 128px;
+  height: 86px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(14,14,20,0.2);
+}
+
+.pattern-visual.pattern-dashboard { background: none; }
+.pattern-visual.pattern-editorial { background: none; }
+.pattern-visual.pattern-spotlight { background: none; }
+.pattern-visual.pattern-contact { background: none; }
+
+.pattern-content {
+  min-width: 0;
+}
+
+.pattern-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(14,14,20,0.18);
+}
+
+.pattern-visual svg { display: block; width: 100%; height: 100%; border-radius: 10px; }
+.pattern-visual rect { opacity: 0.95; }
+.pattern-visual path { mix-blend-mode: overlay; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pattern-item { transition: none !important; }
+}

@@ -204,6 +204,28 @@ export const certifications = [
   },
 ];
 
+export const highlights = [
+  {
+    title: "Product-focused UI work",
+    copy: "I build interfaces that feel calm, clear, and useful for real users rather than just visually impressive screens.",
+  },
+  {
+    title: "Live-data products",
+    copy: "My background is strongest in dashboards, monitoring tools, and operational apps that need fast feedback and clean data storytelling.",
+  },
+  {
+    title: "Reliable execution",
+    copy: "I care about performance, responsiveness, and thoughtful state management so products stay smooth as complexity grows.",
+  },
+];
+
+export const workingStyle = [
+  "Turn messy workflows into intuitive screens",
+  "Balance visual polish with performance and accessibility",
+  "Collaborate closely through sprint cycles and feedback loops",
+  "Keep components reusable so the product scales cleanly",
+];
+
 export const navItems = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },

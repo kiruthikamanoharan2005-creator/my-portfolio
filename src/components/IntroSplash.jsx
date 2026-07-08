@@ -106,24 +106,13 @@ function IntroSplash() {
                   fontWeight: 800,
                   color: "#ffffff",
                   letterSpacing: "0.02em",
-                  lineHeight: 1.05,
-                  fontSize: { xs: "2.3rem", sm: "3.2rem", md: "4rem" },
+                  lineHeight: 1.2,
                   textShadow:
                     "0 2px 0 rgba(0,0,0,0.1), 0 18px 30px rgba(0,60,60,0.35)",
                 }}
               >
-                Welcome
-              </Typography>
-              <Typography
-                sx={{
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  opacity: 0.94,
-                  mt: 0.5,
-                  fontSize: { xs: "1.05rem", sm: "1.3rem", md: "1.6rem" },
-                }}
-              >
-                to my portfolio
+                <div style={{ fontSize: "clamp(1rem, 3vw, 1.4rem)" }}>Welcome to my</div>
+                <div style={{ fontSize: "clamp(2.5rem, 8vw, 4.5rem)" }}>portfolio</div>
               </Typography>
             </motion.div>
           </Box>

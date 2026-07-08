@@ -3,6 +3,10 @@ import DownloadIcon from "@mui/icons-material/Download";
 import EmailIcon from "@mui/icons-material/Email";
 import SpeedIcon from "@mui/icons-material/Speed";
 import TimelineIcon from "@mui/icons-material/Timeline";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
+import DescriptionIcon from "@mui/icons-material/Description";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
 import {
   Box,
   Button,
@@ -20,10 +24,36 @@ import IntroSplash from "../components/IntroSplash.jsx";
 import Reveal, { RevealGroup, RevealItem } from "../components/Reveal.jsx";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { useThemeStore } from "../store/themeStore.js";
-import { profile, projects, skills } from "../data/profile.js";
+import { highlights, profile, projects, skills, workingStyle } from "../data/profile.js";
 
 const metricValueColors = ["#572af9", "#c45a43", "#b78920", "#7c55fa"];
 const skillCardAccents = ["#572af9", "#c45a43", "#f3b43f", "#7c55fa"];
+const screenTemplates = [
+  {
+    title: "Analytics dashboard",
+    description: "Clean KPI cards, live charts, and a calm monitoring layout for product teams.",
+    tags: ["Live data", "KPI cards", "Dark mode"],
+    style: "dashboard",
+  },
+  {
+    title: "Editorial landing",
+    description: "A refined hero-first layout with strong typography and airy content spacing.",
+    tags: ["Hero flow", "Storytelling", "Minimal"],
+    style: "editorial",
+  },
+  {
+    title: "Product spotlight",
+    description: "A feature-led layout that highlights benefits, outcomes, and clear CTAs.",
+    tags: ["Feature grid", "CTA", "Cards"],
+    style: "spotlight",
+  },
+  {
+    title: "Contact experience",
+    description: "A friendly, tactile contact surface with layered cards and approachable actions.",
+    tags: ["Touchpoints", "Form", "Friendly"],
+    style: "contact",
+  },
+];
 
 function DotsAnimation() {
   const [dots, setDots] = useState("");
@@ -204,6 +234,41 @@ function Home() {
             are the center of this portfolio.
           </SectionTitle>
         </Reveal>
+
+        <Reveal variant="zoom">
+          <Paper
+            elevation={0}
+            className="mb-6 overflow-hidden p-5 md:p-7"
+            sx={{ border: "1px solid", borderColor: "divider", background: "linear-gradient(135deg, rgba(87,42,249,0.08), rgba(243,180,63,0.12))" }}
+          >
+            <Grid container spacing={3} alignItems="center">
+              <Grid size={{ xs: 12, lg: 7 }}>
+                <Typography variant="h5" sx={{ fontWeight: 800, mb: 1.5 }}>
+                  Designing for speed, clarity, and real-world use
+                </Typography>
+                <Typography color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                  From production monitoring platforms to polished marketing sites, I focus on interfaces that feel effortless while still handling complex data and workflows.
+                </Typography>
+              </Grid>
+              <Grid size={{ xs: 12, lg: 5 }}>
+                <Stack spacing={1.5}>
+                  {highlights.map((item) => (
+                    <Box key={item.title} sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}>
+                      <Box component="span" sx={{ mt: 1, width: 8, height: 8, borderRadius: "50%", bgcolor: "#f3b43f" }} />
+                      <Box>
+                        <Typography sx={{ fontWeight: 700 }}>{item.title}</Typography>
+                        <Typography color="text.secondary" sx={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
+                          {item.copy}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  ))}
+                </Stack>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Reveal>
+
         <Grid container spacing={2.5} justifyContent="center">
           {projects.map((project, index) => (
             <Grid size={{ xs: 12, lg: 6 }} key={project.title}>
@@ -248,7 +313,50 @@ function Home() {
 
       <Container maxWidth={false} className="py-12">
         <Reveal variant="up">
+          <SectionTitle eyebrow="Screen design templates" title="A few UI directions you can explore">
+            These layouts reflect the kind of polished screen systems I enjoy building for products, dashboards, and storytelling experiences.
+          </SectionTitle>
+        </Reveal>
+        <Box className="design-patterns design-patterns--simple">
+          {screenTemplates.map((template, index) => (
+            <Reveal key={template.title} variant="up" delay={index * 0.06}>
+              <Box className="pattern-item pattern-simple">
+                <Box className={`pattern-icon pattern-icon--${template.style}`} aria-hidden>
+                  <Box className="icon-circle" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {template.style === 'dashboard' && <ShowChartIcon sx={{ color: '#fff', fontSize: 28 }} />}
+                    {template.style === 'editorial' && <DescriptionIcon sx={{ color: '#1c1c1c', fontSize: 28 }} />}
+                    {template.style === 'spotlight' && <AutoAwesomeIcon sx={{ color: '#fff', fontSize: 28 }} />}
+                    {template.style === 'contact' && <ContactMailIcon sx={{ color: '#fff', fontSize: 28 }} />}
+                  </Box>
+                </Box>
+                <Box className="pattern-content" sx={{ textAlign: "center" }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>{template.title}</Typography>
+                  <Typography color="text.secondary" sx={{ mt: 1 }}>{template.description}</Typography>
+                </Box>
+              </Box>
+            </Reveal>
+          ))}
+        </Box>
+      </Container>
+
+      <Container maxWidth={false} className="py-12">
+        <Reveal variant="up">
           <SectionTitle eyebrow="Core stack" title="Frontend tools with dashboard depth" />
+        </Reveal>
+        <Reveal variant="zoom">
+          <Paper elevation={0} sx={{ border: "1px solid", borderColor: "divider", p: { xs: 3, md: 4 }, mb: 3, background: "linear-gradient(135deg, rgba(87,42,249,0.05), rgba(255,255,255,0.7))" }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, mb: 1.5 }}>
+              How I approach implementation
+            </Typography>
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 1.5 }}>
+              {workingStyle.map((item) => (
+                <Box key={item} sx={{ display: "flex", gap: 1.25, alignItems: "flex-start" }}>
+                  <Box component="span" sx={{ mt: 0.75, width: 8, height: 8, borderRadius: "50%", bgcolor: "#c45a43" }} />
+                  <Typography color="text.secondary" sx={{ lineHeight: 1.7 }}>{item}</Typography>
+                </Box>
+              ))}
+            </Box>
+          </Paper>
         </Reveal>
         <Reveal variant="zoom">
         <Box className="skill-carousel-panel">
