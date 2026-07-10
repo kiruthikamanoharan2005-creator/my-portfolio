@@ -187,7 +187,11 @@ function Layout({ children }) {
               <Tooltip title="Resume">
                 <IconButton
                   aria-label="Download resume"
+                  component="a"
                   href={profile.resume}
+                  download="Kiruthika-Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="h-11 w-11"
                   sx={{ display: { xs: "none", sm: "inline-flex" }, color: "#ffffff" }}
                 >
@@ -229,7 +233,11 @@ function Layout({ children }) {
           <Stack spacing={1.5} className="mt-auto">
             <ThemeButton />
             <Button
+              component="a"
               href={profile.resume}
+              download="Kiruthika-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               variant="contained"
               startIcon={<DownloadIcon />}
               fullWidth

@@ -68,7 +68,7 @@ function About() {
       <Container maxWidth="lg" className="py-12 md:py-16">
 
         <Reveal variant="up">
-          <SectionTitle eyebrow="About" title="A frontend developer focused on useful interfaces">
+          <SectionTitle eyebrow="About" title="A Software developer focused on useful interfaces">
             Kiruthika combines React.js implementation, data visualization, and
             responsive UI engineering for manufacturing and analytics products.
           </SectionTitle>

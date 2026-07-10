@@ -90,7 +90,7 @@ function Experience() {
       <Box sx={{ position: "relative" }}>
       <Container maxWidth="lg" className="py-12 md:py-16">
         <Reveal variant="up">
-          <SectionTitle eyebrow="Experience" title="Frontend delivery in production environments">
+          <SectionTitle eyebrow="Experience" title="Software delivery in production environments">
             A compact track record of building dashboards, improving rendering
             performance, and collaborating in Agile engineering teams.
           </SectionTitle>

@@ -1,15 +1,15 @@
 export const profile = {
   name: "Kiruthika M",
-  role: "Frontend Developer",
+  role: "Software Developer",
   tagline: "React.js UI engineer building responsive, real-time dashboards.",
   location: "Tirupur, Tamil Nadu, India",
   email: "kiruthikamanoharan47@gmail.com",
   phone: "+91 87785 33287",
   linkedin: "https://www.linkedin.com/in/kiruthika-manoharan-b6a03b297",
   github: "https://github.com/kiruthikamanoharan2005-creator",
-  resume: "/Kiruthika_M_Resume_ATS.docx",
+  resume: "/assets/Kiruthika-Resume.pdf",
   summary:
-    "Frontend Developer with 1+ year of experience specializing in React.js, real-time dashboard development, and REST API integration. Promoted from intern to full-time within 6 months at Altius Technologies. Skilled in scalable, responsive applications for manufacturing and analytics domains using JavaScript, Highcharts, and ECharts.",
+    "Software Developer with 1+ year of experience specializing in React.js, real-time dashboard development, and REST API integration. Promoted from intern to full-time within 6 months at Altius Technologies. Skilled in scalable, responsive applications for manufacturing and analytics domains using JavaScript, Highcharts, and ECharts.",
   metrics: [
     { value: "1+", label: "Year frontend experience" },
     { value: "8+", label: "Dashboards and pages built" },

@@ -81,7 +81,7 @@ function Home() {
     <AnimatedPage>
       <IntroSplash />
       <Box className="relative">
-<Container maxWidth="md" className="grid min-h-[calc(100vh-73px)] items-center pb-8 pt-4 md:pb-12 md:pt-6">
+<Container maxWidth="md" className="grid min-h-[calc(100vh-73px)] items-center px-8 pb-8 pt-20 sm:p-0 md:p-0">
           <Box className="relative flex w-full flex-col items-center text-center">
             <Box
               aria-hidden
@@ -89,9 +89,9 @@ function Home() {
               sx={{
                 position: "absolute",
                 inset: {
-                  xs: "-20px -16px",
-                  sm: "-28px -32px",
-                  md: "-32px -48px",
+                  xs: "-20px 0px",
+                  sm: "-28px 0px",
+                  md: "-32px 0px",
                 },
                 borderRadius: "28px",
                 background: isDark ? "#000000" : "#ffffff",
@@ -103,7 +103,7 @@ function Home() {
               }}
             />
             <RevealGroup
-              className="relative z-[1] flex w-full max-w-2xl flex-col gap-4"
+              className="relative z-[1] flex w-full max-w-2xl flex-col gap-4 px-6 py-8 sm:p-0 md:p-0"
               stagger={0.16}
               amount={0.4}
             >
@@ -152,7 +152,7 @@ function Home() {
                       },
                     }}
                   >
-                    {profile.role} for data-rich interfaces.
+                    {profile.role} - Full Stack
                   </Typography>
                 </Box>
               </RevealItem>
@@ -183,7 +183,11 @@ function Home() {
                     Contact Me
                   </Button>
                   <Button
+                    component="a"
                     href={profile.resume}
+                    download="Kiruthika-Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     variant="text"
                     size="large"
                     startIcon={<DownloadIcon />}
